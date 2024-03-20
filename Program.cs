@@ -1,4 +1,6 @@
 ﻿using AdvertisingBoard.Data;
+using AdvertisingBoard.Repositories;
+using AdvertisingBoard.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -46,6 +48,10 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreConnection")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
+builder.Services.AddScoped<IAdminPanelService, AdminPanelService>();
 
 #region AuthenticationSettings
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

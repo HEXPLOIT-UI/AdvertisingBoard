@@ -9,6 +9,7 @@ public class Photo
     [ForeignKey("AdvertisementId")]
     [Required]
     public Advertisement Advertisement { get; set; }
-    public string? PhotoURL { get; set; }
+    [Required]
+    public string PhotoURL { get; set; }
     public string? Description { get; set; }
 }
