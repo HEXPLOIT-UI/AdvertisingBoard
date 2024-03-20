@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="Contracts\NewFile.txt" />
+    <None Remove="Controllers\NewFile.txt" />
+    <None Remove="Models\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>

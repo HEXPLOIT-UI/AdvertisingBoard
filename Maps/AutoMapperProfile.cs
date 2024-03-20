@@ -1,5 +1,4 @@
-﻿using AdvertisingBoard.ModelsDTO;
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace AdvertisingBoard.Maps
 {
@@ -9,9 +8,9 @@ namespace AdvertisingBoard.Maps
         {
             CreateMap<RegisterUserViewModel, User>();
             CreateMap<LoginUserViewModel, User>();
-            CreateMap<Category, CategoryViewModel>();
             CreateMap<CategoryViewModel, Category>();
             CreateMap<AdvertisementViewModel, Advertisement>();
+            CreateMap<Advertisement, AdvertisementViewModel>();
         }
     }
 }

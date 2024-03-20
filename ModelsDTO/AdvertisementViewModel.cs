@@ -4,10 +4,9 @@ public class AdvertisementViewModel
 {
     [Required]
     public required string Title { get; set; }
-    public string? Description { get; set; }
+    public string Description { get; set; } = string.Empty;
     public double Price { get; set; }
-    public string? ContactInfo { get; set; }
+    public string ContactInfo { get; set; } = string.Empty;
     [Required]
-    public required string CategoryName { get; set; }
-    public ICollection<PhotoViewModel> Photos { get; set; } = [];
+    public int CategoryId { get; set; }
 }

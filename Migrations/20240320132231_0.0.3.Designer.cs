@@ -3,6 +3,7 @@ using System;
 using AdvertisingBoard.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AdvertisingBoard.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320132231_0.0.3")]
+    partial class _003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,6 +83,8 @@ namespace AdvertisingBoard.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories");
                 });
@@ -165,6 +170,15 @@ namespace AdvertisingBoard.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Category", b =>
+                {
+                    b.HasOne("Category", "ParentCategory")
+                        .WithMany("ChildCategories")
+                        .HasForeignKey("ParentCategoryId");
+
+                    b.Navigation("ParentCategory");
+                });
+
             modelBuilder.Entity("Photo", b =>
                 {
                     b.HasOne("Advertisement", "Advertisement")
@@ -179,6 +193,11 @@ namespace AdvertisingBoard.Migrations
             modelBuilder.Entity("Advertisement", b =>
                 {
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("Category", b =>
+                {
+                    b.Navigation("ChildCategories");
                 });
 
             modelBuilder.Entity("User", b =>

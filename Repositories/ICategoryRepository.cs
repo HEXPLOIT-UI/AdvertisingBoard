@@ -6,11 +6,11 @@ namespace AdvertisingBoard.Repositories
     public interface ICategoryRepository
     {
         Task<Category?> GetByIdAsync(int id);
-        Task<Category?> GetByNameAsync(string name);
-        Task<IEnumerable<Category>> GetAllAsync();
-        Task AddAsync(Category category);
-        Task UpdateAsync(Category category);
+        Task<IEnumerable<Category>> GetAllParentsCategories();
+        Task CreateCategory(Category category);
+        Task UpdateCategory(int id, Category category);
         Task DeleteAsync(Category category);
+        Task<IEnumerable<Category>> GetCategoriesByParentId (int parentId);
     }
 
     public class CategoryRepository : ICategoryRepository
@@ -24,8 +24,9 @@ namespace AdvertisingBoard.Repositories
             _categories = context.Set<Category>();
         }
 
-        public async Task AddAsync(Category category)
+        public async Task CreateCategory(Category category)
         {
+            
             await _categories.AddAsync(category);
             await _context.SaveChangesAsync();
         }
@@ -36,9 +37,10 @@ namespace AdvertisingBoard.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Category>> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllParentsCategories()
         {
-            return await _categories.ToListAsync();
+            return await _categories.Where(c => c.ParentCategoryId == null).ToListAsync();
+            
         }
 
         public async Task<Category?> GetByIdAsync(int id)
@@ -46,14 +48,17 @@ namespace AdvertisingBoard.Repositories
             return await _categories.FindAsync(id);
         }
 
-        public async Task<Category?> GetByNameAsync(string name)
+        public async Task<IEnumerable<Category>> GetCategoriesByParentId(int parentId)
         {
-            return await _categories.FirstOrDefaultAsync(u => u.Name == name);
+            return await _categories.Where(c => c.ParentCategoryId == parentId).ToListAsync();
         }
 
-        public async Task UpdateAsync(Category category)
+        public async Task UpdateCategory(int id, Category category)
         {
-            _categories.Update(category);
+            var originalCategory = await _categories.FindAsync(id);
+            originalCategory.Name = category.Name;
+            originalCategory.ParentCategoryId = category.ParentCategoryId;
+            _categories.Update(originalCategory);
             await _context.SaveChangesAsync();
         }
     }

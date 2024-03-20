@@ -1,5 +1,4 @@
-﻿using AdvertisingBoard.ModelsDTO;
-using AdvertisingBoard.Repositories;
+﻿using AdvertisingBoard.Repositories;
 using AdvertisingBoard.Utils;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;

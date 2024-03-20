@@ -7,11 +7,9 @@ public class Advertisement
     public int AdvertisementId { get; set; }
     public int UserId { get; set; }
     [ForeignKey("UserId")]
-    [Required]
     public User User { get; set; }
     public int CategoryId { get; set; }
     [ForeignKey("CategoryId")]
-    [Required]
     public Category Category { get; set; }
     [Required]
     public string Title { get; set; }
@@ -19,7 +17,6 @@ public class Advertisement
     [Required]
     public double Price { get; set; }
     public string? ContactInfo { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-    public ICollection<Photo> Photos { get; set; } = [];
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

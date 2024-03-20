@@ -1,5 +1,4 @@
-﻿using AdvertisingBoard.ModelsDTO;
-using AdvertisingBoard.Repositories;
+﻿using AdvertisingBoard.Repositories;
 using AutoMapper;
 
 namespace AdvertisingBoard.Services

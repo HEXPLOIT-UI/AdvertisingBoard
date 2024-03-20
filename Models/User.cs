@@ -16,5 +16,4 @@ public class User
     public string PhoneNumber { get; set; }
     [Required]
     public string Role { get; set; } = "User";
-    public ICollection<Advertisement> Advertisements { get; set; } = [];
 }
