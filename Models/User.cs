@@ -2,23 +2,19 @@
 
 public class User
 {
-    public int Id { get; set; }
-
+    [Key]
+    public int UserId { get; set; }
     [Required]
-    public string Name { get; set; }
-
+    public string FullName { get; set; }
     [Required]
     public string Login { get; set; }
-
     [Required]
-    [EmailAddress]
     public string Email { get; set; }
-
     [Required]
-    [Phone]
-    public string PhoneNumber { get; set; }
-
-    [Required]
-    [DataType(DataType.Password)]
     public string Password { get; set; }
+    [Required]
+    public string PhoneNumber { get; set; }
+    [Required]
+    public string Role { get; set; } = "User";
+    public ICollection<Advertisement> Advertisements { get; set; } = [];
 }
