@@ -8,7 +8,6 @@ namespace AdvertisingBoard.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin, User")]
     public class AdvertisementController : ControllerBase
     {
         private readonly IAdvertisementService _advertisementService;
@@ -18,18 +17,21 @@ namespace AdvertisingBoard.Controllers
         }
 
         [HttpPost("CreateAdvertisement")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> CreateAdvertisement([FromForm] AdvertisementViewModel model)
         {
             return Ok(await _advertisementService.CreateAdvertisement(model, HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value));
         }
 
         [HttpPost("DeleteAdvertisement")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> DeleteAdvertisement([Required] int id)
         {
             return Ok(await _advertisementService.DeleteAdvertisement(id, HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value));
         }
         
         [HttpPost("UpdateAdvertisement")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> UpdateAdvertisement([Required] int id, [FromForm] AdvertisementViewModel model)
         {
             return Ok(await _advertisementService.UpdateAdvertisement(id, model, HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value));
