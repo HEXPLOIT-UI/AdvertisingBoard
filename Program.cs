@@ -1,6 +1,7 @@
 ﻿using AdvertisingBoard.Data;
 using AdvertisingBoard.Repositories;
 using AdvertisingBoard.Services;
+using AdvertismentBoard.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -53,10 +54,15 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddScoped<IAdminPanelService, AdminPanelService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAdvertisementService, AdvertisementService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
+
 
 #region AuthenticationSettings
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -94,6 +100,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

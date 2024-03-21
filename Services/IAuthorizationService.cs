@@ -68,7 +68,7 @@ namespace AdvertisingBoard.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(48),
+                Expires = DateTime.Now.AddHours(int.TryParse(_configuration["Jwt:Expires"], out int res) ? res : 168),
                 SigningCredentials = creds
             };
             var tokenHandler = new JwtSecurityTokenHandler();

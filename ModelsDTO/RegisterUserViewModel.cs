@@ -9,10 +9,12 @@ public class RegisterUserViewModel
     [Required]
     [StringLength(32, MinimumLength = 3)]
     [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "Логин должен содержать только латинские буквы и цифры без пробелов")]
+    [CreateUserValidator(ErrorMessage = "Поле должно быть уникальным")]
     public required string Login { get; set; }
     [Required]
     [StringLength(128, MinimumLength = 3)]
     [EmailAddress(ErrorMessage = "Некорректный адрес электронной почты")]
+    [CreateUserValidator(ErrorMessage = "Поле должно быть уникальным")]
     public required string Email { get; set; }
     [Required]
     [StringLength(128, MinimumLength = 6)]
@@ -22,5 +24,6 @@ public class RegisterUserViewModel
     [StringLength(64, MinimumLength = 3)]
     [RegularExpression(@"^\+[1-9]\d{1,14}$", ErrorMessage = "Неверный формат номера телефона")]
     [Phone(ErrorMessage = "Неверный формат номера телефона")]
+    [CreateUserValidator(ErrorMessage = "Поле должно быть уникальным")]
     public required string PhoneNumber { get; set; }
 }

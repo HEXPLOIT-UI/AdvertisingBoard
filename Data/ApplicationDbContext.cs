@@ -12,10 +12,14 @@ namespace AdvertisingBoard.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasIndex(e => e.Login).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(e => e.Email).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(e => e.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Category>().HasIndex(e => e.Name).IsUnique();
         }
     }
 }

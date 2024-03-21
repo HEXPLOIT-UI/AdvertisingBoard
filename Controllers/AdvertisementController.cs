@@ -1,7 +1,6 @@
 ﻿using AdvertisingBoard.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Query;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
@@ -40,6 +39,18 @@ namespace AdvertisingBoard.Controllers
         public async Task<IActionResult> GetAdvertisement([Required] int id)
         {
             return Ok(await _advertisementService.GetAdvertisementById(id));
+        }
+
+        [HttpGet("GetAllAdvertisements")]
+        public async Task<IActionResult> GetAllAdvertisements(int page, int categoryId = -1)
+        {
+            return Ok(await _advertisementService.GetAllAdvertisementsOnPage(page, categoryId));
+        }
+        
+        [HttpGet("SearchAdvertisements")]
+        public async Task<IActionResult> SearchAdvertisements(int page, string keyword, int categoryId = -1, string contacts = "")
+        {
+            return Ok(await _advertisementService.SearchAdvertisementByKeywordsOnPage(page, keyword, categoryId, contacts));
         }
     }
 }

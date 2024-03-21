@@ -11,10 +11,12 @@ namespace AdvertisingBoard.Controllers
     public class AdminPanelController : ControllerBase
     {
         private readonly IAdminPanelService _adminPanelService;
+        private readonly IAdvertisementService _advertisementService;
 
-        public AdminPanelController(IAdminPanelService adminPanelService)
+        public AdminPanelController(IAdminPanelService adminPanelService, IAdvertisementService advertisementService)
         {
             _adminPanelService = adminPanelService;
+            _advertisementService = advertisementService;
         }
 
         [HttpGet]
@@ -27,6 +29,12 @@ namespace AdvertisingBoard.Controllers
         public async Task<IActionResult> SetAdmin([FromForm][Required] string login, [FromForm][Required] bool isAdmin)
         {
             return Ok(await _adminPanelService.SetAdmin(login, isAdmin));
+        }
+
+        [HttpPost("DeleteAllAdvertisements")]
+        public async Task<IActionResult> DeleteAllAdvertisements()
+        {
+            return Ok(await _advertisementService.DeleteAllAdvertisements());
         }
     }
 }

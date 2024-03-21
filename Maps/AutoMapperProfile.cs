@@ -11,6 +11,9 @@ namespace AdvertisingBoard.Maps
             CreateMap<CategoryViewModel, Category>();
             CreateMap<AdvertisementViewModel, Advertisement>();
             CreateMap<Advertisement, AdvertisementViewModel>();
+            CreateMap<Comment, CommentViewModel>();
+            CreateMap<CommentViewModel, Comment>();
+            CreateMap<Photo, PhotoViewModel>();
         }
     }
 }

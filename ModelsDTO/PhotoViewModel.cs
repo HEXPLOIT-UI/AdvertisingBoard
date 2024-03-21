@@ -2,7 +2,6 @@
 
 public class PhotoViewModel
 {
-    [Required]
-    public required string PhotoURL { get; set; }
-    public string? Description { get; set; }
+    public string PhotoURL { get; set; }
+    public int PhotoId { get; set; }
 }
